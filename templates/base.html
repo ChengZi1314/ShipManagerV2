@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>船员在线</title>
+    <link rel="stylesheet" href="{% static 'shipmanager/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'shipmanager/css/pygments/manni.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/css/bootstrap.min.css' %}">
+
+    <style type="text/css">
+        #id_username{width: 170px;border-radius: 5px; }
+        #id_password{width: 170px;border-radius: 5px;margin-left: 12px; }
+        #foot {
+            background-color: #a7a9ab;
+            color:white;
+            clear:both;
+            text-align:center;
+            padding:5px;
+        }
+        .nav ul{
+            width:1280px;
+            margin:0 auto;
+            height:50px;
+            padding: 10px;
+        }
+        .nav ul li{
+            float:left;
+        }
+        .nav ul li a{
+            width:400px;
+            height:50px;
+            line-height:50px;
+            background: #5bc0de;
+            color:#FFF;
+            font-size:25px;
+            display:block;
+            text-align:center;
+            text-decoration:none;
+        }
+        .nav ul li a:hover{
+            width:400px;
+            height:50px;
+            line-height:50px;
+            border:1px solid red;
+            color:red;
+            background:#FFF;
+        }
+    </style>
+</head>
+<body>
+
+    <div style="padding-left: 15px">
+         <div id="header">
+            <div id="header-warp">
+                <a href="/" id="logo"></a>
+            <ul id="header-nav">
+                {% for a in title_list %}
+                    <li><a href="/personal">{{ a.username }}</a></li>
+                {% endfor %}
+            </ul>
+
+            <div id="header-right" class="login" style="float: right">
+              <a href="/regist" style="margin-right: 80px"><button type="button" class="btn btn-info">注册</button></a>
+            </div>
+            <div id="header-right" class="login" style="float: right">
+              <a href="/login" style="margin-right: 80px"><button type="button" class="btn btn-info">登陆</button></a>
+            </div>
+        </div>
+        </div>
+        <div class="nav">
+            <ul>
+                <li><a href="/search">船员招聘</a></li>
+                <li><a href="/news">船间新闻</a></li>
+                <li><a href="/contact">线下交流</a></li>
+            </ul>
+        </div><!--导航栏框-->
+    </div>
+
+<br/>
+
+
+
+{% block content %}{% endblock %}
+    <br/><br/><br/><br/><br/><br/><br/>
+<center>
+    <div style="width: 1300px;padding-right: 40px">
+        <div id="foot" class="noselect" style="width: 1200px">
+            <ul id="ft-links">
+                <li><a href="http://crew.sol.com.cn">船员在线</a></li>
+            </ul>
+        </div>
+    </div>
+
+</center>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script type="text/javascript" src="{% static 'shipmanager/js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'lib/js/bootstrap.min.js' %}"></script>
+
+
+</body>
+</html>
