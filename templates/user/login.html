@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+ {% block content %}
+    {% load staticfiles %}
+    <html lang="zh-CN">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>登陆</title>
+        <link rel="stylesheet" href="{% static 'shipmanager/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'shipmanager/css/pygments/manni.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/css/bootstrap.min.css' %}">
+
+    <style type="text/css">
+        #section {
+            height: 350px;
+            width:350px;
+            float: inherit;
+            padding-right: 10px;
+            background-color: #caf8ff;
+        }
+        </style>
+    </head>
+
+    <body>
+    <center>
+        <br><br><br><br><br><br><br>
+        <div id="section">
+            <div style="width: 350px;height: 80px; background-color: #00bcef;padding-top: 1px">
+                <h1><font color="white">登陆页面</font></h1>
+            </div>
+            <div style="width: 350px;height: 270px;padding-top: 50px">
+                <form method = 'post' enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{uf.as_p}}
+                    <div style="width: 350px;height: 100px;padding-top: 20px;padding-left: 20px">
+                        <input type="submit" class="button button-primary button-pill button-large" value = "登陆" />
+                    </div>
+                </form>
+            </div>
+        </div>
+<br><br><br><br><br><br><br>
+    </center>
+
+    </body>
+    </html>
+{% endblock %}
