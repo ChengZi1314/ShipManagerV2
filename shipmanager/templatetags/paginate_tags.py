@@ -6,8 +6,8 @@ register = template.Library()  # 这是定义模板标签要用到的
 
 @register.simple_tag(takes_context=True)
 def paginate(context, object_list, page_count):
-    left = 2  # 当前页码左边显示几个页码号 -1，比如3就显示2个
-    right = 2
+    left = 3  # 当前页码左边显示几个页码号 -1，比如3就显示2个
+    right = 3
 
     paginator = Paginator(object_list, page_count)
     page = context['request'].GET.get('page')
@@ -28,7 +28,12 @@ def paginate(context, object_list, page_count):
         context['current_page'] = paginator.num_pages
         pages = get_left(context['current_page'], left, paginator.num_pages)
 
-    context['article_list'] = object_list  # 把获取到的分页的数据封装到上下文中
+    context['crew_list'] = object_list
+    context['cv_list'] = object_list
+    context['post_list'] = object_list
+    context['article_list'] = object_list
+    context['recruit_list'] = object_list
+    context['user_list'] = object_list  # 把获取到的分页的数据封装到上下文中
     context['pages'] = pages  # 把页码号列表封装进去
     context['last_page'] = paginator.num_pages   # 最后一页的页码号
     context['first_page'] = 1   # 第一页的页码号为1

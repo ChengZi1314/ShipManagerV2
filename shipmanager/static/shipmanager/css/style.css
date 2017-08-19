@@ -1,3 +1,8 @@
+.logo1{
+    background-image: url("../img/china-vessel.png");
+    height: 70px;
+    width: 160px;
+}
 html, body {
     margin: 0;
     padding: 0;

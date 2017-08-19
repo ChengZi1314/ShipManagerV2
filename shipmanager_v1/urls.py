@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from shipmanager import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('shipmanager.urls', namespace='shipmanager')),
+    url(r'^users/', include('django.contrib.auth.urls')),
+    url(r'^$', views.Search.as_view(), name='search'),
 ]

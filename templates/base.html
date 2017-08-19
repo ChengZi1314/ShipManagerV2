@@ -49,37 +49,76 @@
     </style>
 </head>
 <body>
+<center>
+    <div style="width: 1300px;height: 150px">
 
-    <div style="padding-left: 15px">
-         <div id="header">
-            <div id="header-warp">
-                <a href="/" id="logo"></a>
-            <ul id="header-nav">
-                {% for a in title_list %}
-                    <li><a href="/personal">{{ a.username }}</a></li>
-                {% endfor %}
-            </ul>
+         <div id="header" style="padding-left:100px;height: 80px;width: 1300px">
 
-            <div id="header-right" class="login" style="float: right">
-              <a href="/regist" style="margin-right: 80px"><button type="button" class="btn btn-info">注册</button></a>
-            </div>
-            <div id="header-right" class="login" style="float: right">
-              <a href="/login" style="margin-right: 80px"><button type="button" class="btn btn-info">登陆</button></a>
-            </div>
-        </div>
+             <div  style="float:left;width: 200px">
+                <a href="/" class="logo1"></a>
+             </div>
+
+             <div style="float:left;height: 78px;width: 1000px">
+                 {% if user.is_authenticated %}
+                     <div style="float:left;width: 200px;height: 50px;padding-top: 20px">
+                         <p>你已登录，欢迎你：<a href="/personal">{{ user.username }}</a></p>
+                     </div>
+                     <div style="float:left;width: 100px;height: 50px;padding-top: 30px">
+                         <button class="btn btn-default" onclick="window.location.href='{% url 'logout' %}?next={{ request.path}} '">注销登陆</button>
+                     </div>
+                     <div style="float:left;width: 100px;height: 50px;padding-top: 30px">
+                         <button class="btn btn-default" onclick="window.location.href='{% url 'password_change' %}?next={{ request.path}} '">修改密码</button>
+                     </div>
+                      <div style="float:left;width: 100px;height: 50px;padding-top: 30px">
+                         <button class="btn btn-default" onclick="window.location.href='{% url 'shipmanager:recruit' %}'">发布招聘</button>
+                     </div>
+                     <div style="float:left;width: 100px;height: 50px;padding-top: 30px">
+                         <button class="btn btn-default" onclick="window.location.href='{% url 'shipmanager:personal' %}'">发布简历</button>
+                     </div>
+                     <div style="float:left;width: 100px;height: 50px;padding-top: 30px">
+                         <button class="btn btn-default" onclick="window.location.href='{% url 'shipmanager:search_crew' %}'">搜简历</button>
+                     </div>
+                     <div style="float:left;width: 100px;height: 50px;padding-top: 30px">
+                         <button class="btn btn-default" onclick="window.location.href='{% url 'shipmanager:post_article' %}'">写文章</button>
+
+                     </div>
+                     <div style="float:left;width: 100px;height: 50px;padding-top: 30px">
+                         <button class="btn btn-default" onclick="window.location.href='{% url 'shipmanager:add_contact' %}'">添加交流</button>
+                     </div>
+                 {% else %}
+                     <div style="float:left;width: 200px;height: 50px;padding-top: 20px">
+                         <p>你还没有登录，请</p>
+                     </div>
+                     <div style="float:left;width: 100px;height: 50px;padding-top: 30px">
+                         <button class="btn btn-default" onclick="window.location.href='{% url 'login' %}?next={{ request.path}} '">登陆</button>
+                     </div>
+                     <div style="float:left;width: 100px;height: 50px;padding-top: 30px">
+                         <button class="btn btn-default" onclick="window.location.href='{% url 'shipmanager:register' %}?next={{ request.path}} '">注册</button>
+                     </div>
+                     <div style="float:left;width: 100px;height: 50px;padding-top: 30px">
+                         <button class="btn btn-default" onclick="window.location.href='{% url 'shipmanager:search_crew' %}'">搜简历</button>
+                     </div>
+                     <div style="float:left;width: 100px;height: 50px;padding-top: 30px">
+                         <button class="btn btn-default" onclick="window.location.href='{% url 'shipmanager:add_contact' %}'">添加交流</button>
+                     </div>
+                 {% endif %}
+             </div>
+
+
+
         </div>
         <div class="nav">
             <ul>
                 <li><a href="/search">船员招聘</a></li>
-                <li><a href="/news">船间新闻</a></li>
-                <li><a href="/contact">线下交流</a></li>
+                <li><a href="/news">航运新闻</a></li>
+                <li><a href="/contact">技术交流</a></li>
+
             </ul>
         </div><!--导航栏框-->
     </div>
+</center>
 
 <br/>
-
-
 
 {% block content %}{% endblock %}
     <br/><br/><br/><br/><br/><br/><br/>
@@ -91,7 +130,6 @@
             </ul>
         </div>
     </div>
-
 </center>
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
