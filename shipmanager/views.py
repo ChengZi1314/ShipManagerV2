@@ -115,6 +115,30 @@ class Personal(ListView):
         return super(Personal, self).get_context_data(**kwargs)
 
 
+class Search_Crew(ListView):
+    template_name = "recruit/search_crew.html"
+    context_object_name = "crew_list"
+
+    def get_queryset(self):
+        search_duty = self.request.GET.get('search_duty')
+        search_certificate_level = self.request.GET.get('search_certificate_level')
+        search_special_certificate = self.request.GET.get('search_special_certificate')
+        search_route_area = self.request.GET.get('search_route_area')
+        search_time = self.request.GET.get('search_time')
+
+        self.request.session["duty"] = search_duty
+        self.request.session["certificate_level"] = search_certificate_level
+        self.request.session["special_certificate"] = search_special_certificate
+        self.request.session["route_area"] = search_route_area
+        self.request.session["time"] = search_time
+        crew_list = PersonalCV.objects.all()
+
+        return crew_list
+
+    def get_context_data(self, **kwargs):
+        return super(Search_Crew, self).get_context_data(**kwargs)
+
+
 class Search(ListView):
     template_name = "recruit/search.html"
     context_object_name = "recruit_list"
@@ -142,7 +166,7 @@ class Search(ListView):
         self.request.session["tonnage"] = search_tonnage
         self.request.session["time"] = search_time
         recruit_list = Library.objects.all()
-        if search_ship_age:
+        if search_duty:
             Information.objects.create(
                 ship_age=search_ship_age,
                 duty=search_duty,
@@ -162,28 +186,46 @@ class Search(ListView):
         return super(Search, self).get_context_data(**kwargs)
 
 
-class Search_Crew(ListView):
-    template_name = "recruit/search_crew.html"
-    context_object_name = "crew_list"
+class Crew_Detail(ListView):
+    template_name = "recruit/crew_detail.html"
+    context_object_name = "cv_list"
 
     def get_queryset(self):
-        search_duty = self.request.GET.get('search_duty')
-        search_certificate_level = self.request.GET.get('search_certificate_level')
-        search_special_certificate = self.request.GET.get('search_special_certificate')
-        search_route_area = self.request.GET.get('search_route_area')
-        search_time = self.request.GET.get('search_time')
+        search_duty = self.request.session.get('duty')
+        search_certificate_level = self.request.session.get('certificate_level')
+        search_special_certificate = self.request.session.get('special_certificate')
+        search_route_area = self.request.session.get('route_area')
+        search_recruitment_ship = self.request.session.get('recruitment_ship')
+        search_time = self.request.session.get('time')
 
-        self.request.session["duty"] = search_duty
-        self.request.session["certificate_level"] = search_certificate_level
-        self.request.session["special_certificate"] = search_special_certificate
-        self.request.session["route_area"] = search_route_area
-        self.request.session["time"] = search_time
-        crew_list = PersonalCV.objects.all()
-
-        return crew_list
+        if search_duty == '':
+            cv_list = PersonalCV.objects.all()
+        else:
+            cv_list = PersonalCV.objects.filter(duty__exact=search_duty)
+        if search_certificate_level == '':
+            cv_list = cv_list.filter()
+        else:
+            cv_list = cv_list.filter(certificate_level__exact=search_certificate_level)
+        if search_special_certificate == '':
+            cv_list = cv_list.filter()
+        else:
+            cv_list = cv_list.filter(special_certificate__exact=search_special_certificate)
+        if search_route_area == '':
+            cv_list = cv_list.filter()
+        else:
+            cv_list = cv_list.filter(route_area__exact=search_route_area)
+        if search_recruitment_ship == '':
+            cv_list = cv_list.filter()
+        else:
+            cv_list = cv_list.filter(recruitment_ship__exact=search_recruitment_ship)
+        if search_time == '':
+            cv_list = cv_list.filter()
+        else:
+            cv_list = cv_list.filter(time__exact=search_time)
+        return cv_list
 
     def get_context_data(self, **kwargs):
-        return super(Search_Crew, self).get_context_data(**kwargs)
+        return super(Crew_Detail, self).get_context_data(**kwargs)
 
 
 class Search_detail(ListView):
@@ -242,48 +284,6 @@ class Search_detail(ListView):
 
     def get_context_data(self, **kwargs):
         return super(Search_detail, self).get_context_data(**kwargs)
-
-
-class Crew_Detail(ListView):
-    template_name = "recruit/crew_detail.html"
-    context_object_name = "cv_list"
-
-    def get_queryset(self):
-        search_duty = self.request.session.get('duty')
-        search_certificate_level = self.request.session.get('certificate_level')
-        search_special_certificate = self.request.session.get('special_certificate')
-        search_route_area = self.request.session.get('route_area')
-        search_recruitment_ship = self.request.session.get('recruitment_ship')
-        search_time = self.request.session.get('time')
-
-        if search_duty == '':
-            cv_list = PersonalCV.objects.all()
-        else:
-            cv_list = PersonalCV.objects.filter(duty__exact=search_duty)
-        if search_certificate_level == '':
-            cv_list = cv_list.filter()
-        else:
-            cv_list = cv_list.filter(certificate_level__exact=search_certificate_level)
-        if search_special_certificate == '':
-            cv_list = cv_list.filter()
-        else:
-            cv_list = cv_list.filter(special_certificate__exact=search_special_certificate)
-        if search_route_area == '':
-            cv_list = cv_list.filter()
-        else:
-            cv_list = cv_list.filter(route_area__exact=search_route_area)
-        if search_recruitment_ship == '':
-            cv_list = cv_list.filter()
-        else:
-            cv_list = cv_list.filter(recruitment_ship__exact=search_recruitment_ship)
-        if search_time == '':
-            cv_list = cv_list.filter()
-        else:
-            cv_list = cv_list.filter(time__exact=search_time)
-        return cv_list
-
-    def get_context_data(self, **kwargs):
-        return super(Crew_Detail, self).get_context_data(**kwargs)
 
 
 class News(ListView):

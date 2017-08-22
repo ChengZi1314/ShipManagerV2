@@ -6,6 +6,14 @@
         function test(){
             window.open('/search_detail');
         }
+        function test1() {
+
+            if(!window.name){
+                window.name='test';
+                form1.submit();
+            }
+
+        }
     </Script>
     <meta charset="UTF-8">
     <title>搜索功能</title>
@@ -45,7 +53,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="test1()">
 <center>
     <div style="width: 1246px;height: 600px;padding-right: 20px;  padding-top: 30px"><!--大框-->
         <div style="width: 450px;height: 700px;float: left">
@@ -64,7 +72,7 @@
                 <br/><br/><br/>
             </div>
             <div id="right">
-                <form role="search" method="get" style="float:left">
+                <form role="search" method="get" id="form1" style="float:left">
                     <br/>
                     <input class="form-control" type="text" name="search_duty_id" placeholder="职务编号"><br/>
                     <input class="form-control" type="text" name="search_ship_age" placeholder="船龄"><br/>
